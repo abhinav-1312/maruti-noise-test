@@ -148,7 +148,7 @@ tensorflow==2.13.0
 # # types-python-dateutil>=2.9.0
 # # uri-template==1.3.0
 # urllib3==2.2.3
-# uvicorn==0.21.1
+uvicorn==0.21.1
 # uvloop==0.21.0
 # watchfiles==0.24.0
 # # wcwidth==0.2.13
