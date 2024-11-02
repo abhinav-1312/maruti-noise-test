@@ -1,8 +1,11 @@
 from fastapi import FastAPI, UploadFile, File
 from fastapi.responses import JSONResponse
+from fastapi.middleware.cors import CORSMiddleware
 import numpy as np
 import librosa
 import tensorflow as tf
+
+# PYTHON VERSION 3.9.7
 
 # Load your trained model
 model = tf.keras.models.load_model("noise_model.h5")  # Update the path to your model
@@ -11,6 +14,16 @@ model = tf.keras.models.load_model("noise_model.h5")  # Update the path to your 
 class_names = ['NOT_OK_Sound_Water_Pump', 'OK_Noise_Water_Pump']  # Replace with your actual class names
 
 app = FastAPI()
+
+# Allow CORS
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["*"],  # Change this to specific origins in production
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
+
 
 def extract_mel_spectrogram(file_path, n_mels=128, target_length=169, duration=5, sr=22050):
     audio, sr = librosa.load(file_path, sr=sr, duration=duration)
